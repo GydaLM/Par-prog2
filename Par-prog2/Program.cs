@@ -1,5 +1,23 @@
-﻿using System.ComponentModel.Design;
-using System.Security.Cryptography.X509Certificates;
+﻿/*Lag en konsoll-applikasjon hvor man kan generere opp flere forskjellige virtuelle kjæledyr.
+Bruk constructor i klassen, og man skal ikke ha lov til å endre data som navn, 
+age eller noen andre egenskaper utenfra klassen.
+Lag funksjonalitet som gjør at man kan gi dyret mat, kose med dyret eller sjekke om dyret må på do
+Her er et eksempel på hvordan det kan se ut:
+Hvilket dyr vil du ta vare på? 
+Pikachu
+1. Gi Pikachu mat
+2. Kos med Pikachu
+3. Sjekk om Pikachu må på do
+2
+Pikachu smiler!
+1. Gi Pikachu mat
+2. Kos med Pikachu
+3. Sjekk om Pikachu må på do
+1
+Pikachu er mett og fornøyd
+ */
+
+using System.Threading.Channels;
 
 namespace VirtualPetApp
 {
@@ -26,6 +44,32 @@ namespace VirtualPetApp
             happiness = 50;
             bladder = 50;
 
+        }
+
+        static void Main()
+        {
+            Console.WriteLine("Name your pet:");
+            var nameInput = Console.ReadLine();
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine($"1. Feed {nameInput}");
+            Console.WriteLine("2. Pet " + nameInput);
+            Console.WriteLine($"3. Check if {nameInput} needs to use the bathroom");
+
+            var menuChoice = Console.ReadKey();
+
+            if(menuChoice.KeyChar == '1')
+            {
+                Console.WriteLine(nameInput + "is full.");
+            }
+            else if(menuChoice.KeyChar == '2')
+            {
+                Console.WriteLine(nameInput + "smiles happily!");
+            }
+            else
+            {
+                Console.WriteLine(nameInput + "doesn't need the bathroom.");
+            }
+            Main();
         }
 
         public void Feed()
@@ -65,7 +109,5 @@ namespace VirtualPetApp
                 Console.WriteLine($"{name} is very content right now.");
             }
         }
-}
-
-
+    }
 }
