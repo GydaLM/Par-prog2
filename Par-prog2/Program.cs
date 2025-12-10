@@ -8,7 +8,7 @@
             string nameInput = Console.ReadLine();
 
 
-            VirtualPet pet = new VirtualPet(nameInput, 1, "Unknown");
+            VirtualPet pet = new VirtualPet(nameInput, 1);
 
             while (true)
             {

@@ -23,7 +23,6 @@ namespace VirtualPetApp
     {
         private string name;
         private int age;
-        private string type;
 
         private int hunger;
         private int happiness;
@@ -31,13 +30,11 @@ namespace VirtualPetApp
 
         public string Name => name;
         public int Age => age;
-        public string Type => type;
 
-        public VirtualPet(string name, int age, string type)
+        public VirtualPet(string name, int age)
         {
             this.name = name;
             this.age = age;
-            this.type = type;
             hunger = 50;
             happiness = 50;
             bladder = 50;
