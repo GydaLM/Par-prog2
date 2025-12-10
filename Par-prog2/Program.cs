@@ -7,7 +7,7 @@
             Console.WriteLine("Name your pet:");
             string nameInput = Console.ReadLine();
 
-            // Lag et ekte VirtualPet objekt
+
             VirtualPet pet = new VirtualPet(nameInput, 1, "Unknown");
 
             while (true)

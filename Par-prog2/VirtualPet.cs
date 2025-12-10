@@ -17,8 +17,6 @@ Pikachu smiler!
 Pikachu er mett og fornøyd
 */
 
-using System.Threading.Channels;
-
 namespace VirtualPetApp
 {
     class VirtualPet
