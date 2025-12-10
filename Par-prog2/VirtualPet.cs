@@ -41,10 +41,19 @@ namespace VirtualPetApp
 
         }
 
+        public void Tick()
+        {
+            hunger = Math.Max(0, hunger - 5);
+            happiness = Math.Max(0, happiness - 3);
+            bladder = Math.Min(100, bladder + 2);
+
+            Console.WriteLine($"\n Time passes... {name}'s status has changed.");
+        }
+
         public void Feed()
         {
 
-            hunger = Math.Max(100, hunger + 30);
+            hunger = Math.Min(100, hunger + 30);
             bladder = Math.Min(100, bladder + 20);
 
             if (hunger > 80)

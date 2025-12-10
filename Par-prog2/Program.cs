@@ -1,14 +1,21 @@
-﻿namespace VirtualPetApp
+﻿using System;
+using System.Timers; // Keep this for System.Timers.Timer
+
+namespace VirtualPetApp
 {
     class Program
     {
+        static System.Timers.Timer tickTimer; // Fully qualify Timer to resolve ambiguity
         static void Main(string[] args)
         {
             Console.WriteLine("Name your pet:");
             string nameInput = Console.ReadLine();
 
-
             VirtualPet pet = new VirtualPet(nameInput, 1);
+
+            tickTimer = new System.Timers.Timer(3000);
+            tickTimer.Elapsed += (s, e) => pet.Tick();
+            tickTimer.Start();
 
             while (true)
             {
