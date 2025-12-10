@@ -5,19 +5,21 @@ namespace VirtualPetApp
 {
     class Program
     {
+        static bool running = true;
         static System.Timers.Timer tickTimer; // Fully qualify Timer to resolve ambiguity
         static void Main(string[] args)
         {
             Console.WriteLine("Name your pet:");
             string nameInput = Console.ReadLine();
 
-            VirtualPet pet = new VirtualPet(nameInput, 1);
+            VirtualPet pet = new VirtualPet(nameInput);
 
-            tickTimer = new System.Timers.Timer(3000);
+            tickTimer = new System.Timers.Timer(1000);
             tickTimer.Elapsed += (s, e) => pet.Tick();
             tickTimer.Start();
 
-            while (true)
+
+            while (running)
             {
                 Console.WriteLine("\nWhat do you want to do?");
                 Console.WriteLine($"1. Feed {pet.Name}");
@@ -50,6 +52,10 @@ namespace VirtualPetApp
                         break;
                 }
             }
+        }
+        public static void StopProgram()
+        {
+            running = false;
         }
     }
 }

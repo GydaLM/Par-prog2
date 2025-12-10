@@ -22,19 +22,18 @@ namespace VirtualPetApp
     class VirtualPet
     {
         private string name;
-        private int age;
+        private bool isSick = false;
 
         private int hunger;
         private int happiness;
         private int bladder;
 
         public string Name => name;
-        public int Age => age;
+        public bool IsSick => isSick;
 
-        public VirtualPet(string name, int age)
+        public VirtualPet(string name)
         {
             this.name = name;
-            this.age = age;
             hunger = 50;
             happiness = 50;
             bladder = 50;
@@ -43,11 +42,12 @@ namespace VirtualPetApp
 
         public void Tick()
         {
-            hunger = Math.Max(0, hunger - 5);
-            happiness = Math.Max(0, happiness - 3);
-            bladder = Math.Min(100, bladder + 2);
+            hunger = Math.Max(0, hunger - 6);
+            happiness = Math.Max(0, happiness - 5);
+            bladder = Math.Min(100, bladder + 4);
 
             Console.WriteLine($"\n Time passes... {name}'s status has changed.");
+            CheckHealth();
         }
 
         public void Feed()
@@ -77,14 +77,37 @@ namespace VirtualPetApp
             if (bladder >= 80)
             {
                 Console.WriteLine($"{name} needs to go to the toilet!");
+                Console.WriteLine($"Take {name} to the bathroom?");
+                Console.WriteLine("Yes/No");
+                ConsoleKeyInfo menuChoice = Console.ReadKey();
+                if(menuChoice.KeyChar == 'y')
+                {
+                    bladder = Math.Max(0, bladder - 50);
+                }
             }
             else if (bladder >= 50)
             {
                 Console.WriteLine($"{name} needs a toilet very soon!");
+                Console.WriteLine($"Take {name} to the bathroom?");
+                Console.WriteLine("Yes/No");
+                ConsoleKeyInfo menuChoice = Console.ReadKey();
+                if (menuChoice.KeyChar == 'y')
+                {
+                    bladder = Math.Max(0, bladder - 50);
+                }
             }
             else
             {
                 Console.WriteLine($"{name} is very content right now.");
+            }
+        }
+        private void CheckHealth()
+        {
+            if (hunger < 10 || bladder > 90)
+            {
+                Console.WriteLine("Your pet has become sick!");
+                isSick = true;
+                Program.StopProgram();
             }
         }
     }
