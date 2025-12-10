@@ -1,112 +1,47 @@
-﻿/*Lag en konsoll-applikasjon hvor man kan generere opp flere forskjellige virtuelle kjæledyr.
-Bruk constructor i klassen, og man skal ikke ha lov til å endre data som navn, 
-age eller noen andre egenskaper utenfra klassen.
-Lag funksjonalitet som gjør at man kan gi dyret mat, kose med dyret eller sjekke om dyret må på do
-Her er et eksempel på hvordan det kan se ut:
-Hvilket dyr vil du ta vare på? 
-Pikachu
-1. Gi Pikachu mat
-2. Kos med Pikachu
-3. Sjekk om Pikachu må på do
-2
-Pikachu smiler!
-1. Gi Pikachu mat
-2. Kos med Pikachu
-3. Sjekk om Pikachu må på do
-1
-Pikachu er mett og fornøyd
- */
-
-using System.Threading.Channels;
-
-namespace VirtualPetApp
+﻿namespace VirtualPetApp
 {
-    class VirtualPet
+    class Program
     {
-        private string name;
-        private int age;
-        private string type;
-
-        private int hunger;
-        private int happiness;
-        private int bladder;
-
-        public string Name => name;
-        public int Age => age;
-        public string Type => type;
-
-        public VirtualPet(string name, int age, string type)
-        {
-            this.name = name;
-            this.age = age;
-            this.type = type;
-            hunger = 50;
-            happiness = 50;
-            bladder = 50;
-
-        }
-
-        static void Main()
+        static void Main(string[] args)
         {
             Console.WriteLine("Name your pet:");
-            var nameInput = Console.ReadLine();
-            Console.WriteLine("What do you want to do?");
-            Console.WriteLine($"1. Feed {nameInput}");
-            Console.WriteLine("2. Pet " + nameInput);
-            Console.WriteLine($"3. Check if {nameInput} needs to use the bathroom");
+            string nameInput = Console.ReadLine();
 
-            var menuChoice = Console.ReadKey();
+            // Lag et ekte VirtualPet objekt
+            VirtualPet pet = new VirtualPet(nameInput, 1, "Unknown");
 
-            if(menuChoice.KeyChar == '1')
+            while (true)
             {
-                Console.WriteLine(nameInput + "is full.");
-            }
-            else if(menuChoice.KeyChar == '2')
-            {
-                Console.WriteLine(nameInput + "smiles happily!");
-            }
-            else
-            {
-                Console.WriteLine(nameInput + "doesn't need the bathroom.");
-            }
-            Main();
-        }
+                Console.WriteLine("\nWhat do you want to do?");
+                Console.WriteLine($"1. Feed {pet.Name}");
+                Console.WriteLine($"2. Pet {pet.Name}");
+                Console.WriteLine($"3. Check if {pet.Name} needs the bathroom");
+                Console.WriteLine("4. Quit");
 
-        public void Feed()
-        {
+                ConsoleKeyInfo menuChoice = Console.ReadKey();
+                Console.WriteLine();
 
-            hunger = Math.Max(100, hunger + 30);
-            bladder = Math.Min(100, bladder + 20);
+                switch (menuChoice.KeyChar)
+                {
+                    case '1':
+                        pet.Feed();
+                        break;
 
-            if (hunger > 80)
-            {
-                Console.WriteLine($"{name} is full and happy!");
-            }
-            else
-            {
-                Console.WriteLine($"{name} is eating and looks very happy.");
-            }
-        }
+                    case '2':
+                        pet.Pet();
+                        break;
 
-        public void Pet()
-        {
-            happiness = Math.Min(100, happiness + 25);
-            Console.WriteLine($"{name} purrs happily when you pet them.");
-        }
+                    case '3':
+                        pet.CheckToilet();
+                        break;
 
-        public void CheckToilet()
-        {
-            if (bladder >= 80)
-            {
-                Console.WriteLine($"{name} needs to go to the toilet!");
-            }
-            else if (bladder >= 50)
-            {
-                Console.WriteLine($"{name} needs a toilet very soon!");
-            }
-            else
-            {
-                Console.WriteLine($"{name} is very content right now.");
+                    case '4':
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
             }
         }
     }
