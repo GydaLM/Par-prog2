@@ -107,7 +107,7 @@ namespace VirtualPetApp
             {
                 Console.WriteLine("Your pet has become sick!");
                 isSick = true;
-                Program.StopProgram();
+                Environment.Exit(0);
             }
         }
     }

@@ -5,7 +5,6 @@ namespace VirtualPetApp
 {
     class Program
     {
-        static bool running = true;
         static System.Timers.Timer tickTimer; // Fully qualify Timer to resolve ambiguity
         static void Main(string[] args)
         {
@@ -19,7 +18,7 @@ namespace VirtualPetApp
             tickTimer.Start();
 
 
-            while (running)
+            while (true)
             {
                 Console.WriteLine("\nWhat do you want to do?");
                 Console.WriteLine($"1. Feed {pet.Name}");
@@ -52,10 +51,6 @@ namespace VirtualPetApp
                         break;
                 }
             }
-        }
-        public static void StopProgram()
-        {
-            running = false;
         }
     }
 }
